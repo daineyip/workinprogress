@@ -23,7 +23,9 @@ connection.connect(err => {
             CompanyID INT AUTO_INCREMENT PRIMARY KEY,
             Name VARCHAR(255) NOT NULL,
             Industry VARCHAR(255) NOT NULL,
-            ContactEmail VARCHAR(255)
+            ContactEmail VARCHAR(255),
+            HQAddress VARCHAR(255),
+            Website VARCHAR(255)
         );`;
 
     const createJobTable = `
@@ -32,8 +34,16 @@ connection.connect(err => {
             CompanyID INT NOT NULL,
             Role VARCHAR(255) NOT NULL,
             Location VARCHAR(255) NOT NULL,
+            JobDescription VARCHAR(2000) NOT NULL,
             Experience FLOAT NOT NULL,
             Pay FLOAT,
+            Duration FLOAT,
+            WorkType VARCHAR(100),
+            ApplicationURL VARCHAR(100),
+            Skills VARCHAR(255),
+            JobDatePosted DATE NOT NULL,
+            JobDateClosed DATE, --Do we hold jobs in our database which are not listed for our users
+            Deadline DATE,
             FOREIGN KEY (CompanyID) REFERENCES COMPANY(CompanyID) ON DELETE CASCADE
         );`;
 
@@ -51,7 +61,13 @@ connection.connect(err => {
             GPA DECIMAL(3, 2),
             WorkExperience TEXT NOT NULL,
             PersonalStatement TEXT NOT NULL,
-            Experience FLOAT NOT NULL
+            Experience FLOAT NOT NULL,
+            InterestedIndustry VARCHAR(255),
+            AvailabilityStartDate INT,
+            AvailabilityEndDate INT,
+            CognitiveTestScore FLOAT,
+            CodingOATestScore FLOAT,
+            Location TEXT
         );`;
 
     const createRecruiterTable = `
@@ -62,8 +78,10 @@ connection.connect(err => {
             CompanyID INT NOT NULL,
             EmailID VARCHAR(255) NOT NULL UNIQUE,
             CompanyName VARCHAR(255) NOT NULL,
-            Roles TEXT NOT NULL,
-            Locations TEXT,
+            Roles TEXT NOT NULL, 
+            JobTitle VARCHAR(255) NOT NULL,
+            Locations TEXT, --What does this refer to
+            Location TEXT,
             FOREIGN KEY (CompanyID) REFERENCES COMPANY(CompanyID) ON DELETE CASCADE
         );`;
 
